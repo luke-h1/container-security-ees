@@ -4,7 +4,7 @@ variables:
   PNPM_VERSION: 7.30.5
   NODE_VERSION: 16.14.2
   DOTNET_VERSION: 6.0.x
-  PNPM_CACHE_FOLDER: $(Pipeline.Workspace)/.pnpm
+  PNPM_CACHE_FOLDER: $(Pipeline.Workspace)/.pnpm-store
 
 trigger:
 - main
