@@ -1,0 +1,66 @@
+variables:
+  BuildConfiguration: 'Release'
+  CI: true
+  PNPM_VERSION: 7.30.5
+  NODE_VERSION: 16.14.2
+  DOTNET_VERSION: 6.0.x
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+  - job: 'Frontend'
+    pool:
+      vmImage: 'ubuntu-20.04'
+      demands: azureps
+    steps:
+      - task: NodeTool@0
+        displayName: 'Install Node.js $(NODE_VERSION)'
+        inputs:
+          versionSpec: $(NODE_VERSION)
+
+      - task: 'Bash@3'
+        displayName: 'corepack enable'
+        inputs:
+          workingDir: '.'
+          targetType: 'inline'
+          script: 'corepack enable'
+
+      - task: 'Bash@3'
+        displayName: 'pnpm i'
+        inputs:
+          workingDir: '.'
+          targetType: 'inline'
+          script: 'pnpm i'
+
+      - task: 'Bash@3'
+        displayName: 'echo "done'
+        inputs:
+          workingDir: '.'
+          targetType: 'inline'
+          script: 'echo "done"'
+
+      - task: 'Bash@3'
+        displayName: 'Purge'
+        inputs:
+          workingDir: '.'
+          targetType: 'inline'
+          script: 'pnpm clean && rm -rf src/explore-education-statistics-admin && rm -rf tests && rm -rf src/explore-education-statistics-ckeditor && rm -rf src/GovUk.* && ls -lha src/'
+
+      - task: 'ArchiveFiles@2'
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '.'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/public-frontend.zip'
+          replaceExistingArchive: true
+
+      - task: 'PublishPipelineArtifact@0'
+        displayName: 'Publish Pipeline Artifact'
+        inputs:
+          artifactName: 'public-frontend'
+          targetPath: '$(Build.ArtifactStagingDirectory)'
