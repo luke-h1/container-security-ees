@@ -18,6 +18,15 @@ jobs:
       vmImage: 'ubuntu-20.04'
       demands: azureps
     steps:
+
+      - task: 'Bash@3'
+        displayName: 'yo'
+        inputs:
+          workingDir: '.'
+          targetType: 'inline'
+          script: 'ls -lha'
+
+    
       - task: NodeTool@0
         displayName: 'Install Node.js $(NODE_VERSION)'
         inputs:
