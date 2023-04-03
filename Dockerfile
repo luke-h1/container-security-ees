@@ -4,7 +4,7 @@ USER builder
 
 WORKDIR /app
 
-COPY . . --chown=builder:builder
+COPY --chown=builder:builder . .
 
 RUN rm -rf src/GovUk.*
 
