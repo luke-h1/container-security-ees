@@ -4,6 +4,7 @@ variables:
   PNPM_VERSION: 7.30.5
   NODE_VERSION: 16.14.2
   DOTNET_VERSION: 6.0.x
+  PNPM_CACHE_FOLDER: $(Pipeline.Workspace)/.pnpm
 
 trigger:
 - main
@@ -28,6 +29,15 @@ jobs:
           workingDir: '.'
           targetType: 'inline'
           script: 'corepack enable'
+
+      - task: Cache@2
+        inputs:
+          key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
+          restoreKeys: |
+            pnpm | "$(Agent.OS)"
+            pnpm
+          path: $(PNPM_CACHE_FOLDER)
+        displayName: Cache PNPM packages          
 
       - task: 'Bash@3'
         displayName: 'pnpm i'
