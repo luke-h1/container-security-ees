@@ -1,5 +1,5 @@
 FROM node:16.14.2-alpine AS builder
-
+# 2023-04-03T16:50:07.1295023Z [91m/bin/sh: useradd: not found
 RUN useradd -ms /bin/bash builder
 
 USER builder
