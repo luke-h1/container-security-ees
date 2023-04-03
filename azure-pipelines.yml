@@ -22,7 +22,7 @@ jobs:
       - task: 'Bash@3'
         displayName: 'yo'
         inputs:
-          workingDir: '.'
+          workingDir: '$(Pipeline.Workspace)'
           targetType: 'inline'
           script: 'ls -lha'
 
