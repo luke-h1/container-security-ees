@@ -1,5 +1,8 @@
 FROM node:16.14.2-alpine AS builder
 
+RUN apk update
+RUN adduser -h /home/builder builder
+
 USER builder
 
 WORKDIR /app
@@ -14,7 +17,7 @@ RUN pnpm --filter=explore-education-statistics-frontend... install
 RUN pnpm --filter=explore-education-statistics-frontend build
 
 FROM node:16.14.2-alpine
-
+RUN adduser -h /home/deployer deployer
 USER deployer
 
 ENV NODE_ENV=production
