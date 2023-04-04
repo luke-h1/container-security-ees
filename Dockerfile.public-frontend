@@ -1,33 +1,58 @@
-FROM node:16.14.2-alpine AS builder
+FROM node:16.14.2-slim AS builder
+LABEL maintainer="Hive IT"
 
-RUN apk update
-RUN adduser -h /home/builder builder
+# dockerignore for this file with custom name
+# .dockerignore.public-frontend
+
+# RUN apk add shadow
+
+# RUN useradd -h -ms /home/builder builder
+RUN addgroup --system builder --gid 1005 && \ 
+    adduser --system builder --ingroup builder
 
 USER builder
 
+# RUN \
+	# groupadd wordpress-user -g 1000 && \
+	# useradd -u 1000 -g 1000 wordpress-user
+
 WORKDIR /app
 
-COPY --chown=build:build . .
+# RUN chown -R builder:builder /app
 
-RUN rm -rf src/GovUk.*
+COPY . .
 
+# RUN rm -rf src/GovUk.*
+
+# switch to root to enable corepack due to https://github.com/nodejs/docker-node/issues/1732
+USER root 
 RUN corepack enable
+USER builder
 
 RUN pnpm --filter=explore-education-statistics-frontend... install
 RUN pnpm --filter=explore-education-statistics-frontend build
 
-FROM node:16.14.2-alpine
-RUN adduser -h /home/deployer deployer
-USER deployer
+# Stage 2 - deploy
+FROM node:16.14.2-slim as deployer
 
 ENV NODE_ENV=production
+LABEL maintainer="Hive IT"
 
-# TOOD LH: 
+# RUN apk add shadow
+RUN addgroup --system deployer --gid 1010 && \ 
+    adduser --system deployer --ingroup deployer
+
+USER deployer
+
+
+
+# TOOD LH:
 # * investigate cache mounts (@see https://twitter.com/sidpalas/status/1634194107395641344?s=20)
 # * https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/
 # * https://snyk.io/blog/10-docker-image-security-best-practices/
 # * test whether the non-root users and chown statements that have been added work properly
 
+# RUN --mount=type=cache,target=/home/deployer/.pnpm-store 
 WORKDIR /usr/src/app
 
 COPY --from=builder /app/package.json .
@@ -36,14 +61,16 @@ COPY --from=builder /app/pnpm-workspace.yaml .
 COPY --from=builder /app/src/explore-education-statistics-common/ ./src/explore-education-statistics-common/
 COPY --from=builder /app/src/explore-education-statistics-frontend/ ./src/explore-education-statistics-frontend/
 
-RUN chown -R deployer:deployer /usr/src/app
-
+# switch to root to enable corepack due to https://github.com/nodejs/docker-node/issues/1732
+USER root 
 RUN corepack enable
+USER deployer
+
 RUN pnpm --filter=explore-education-statistics-frontend... --prod install
 
 WORKDIR /usr/src/app/src/explore-education-statistics-frontend
 
-# ENV NODE_ENV=production
+ENV NODE_ENV=production
 EXPOSE 3000
 
 USER node
