@@ -1,11 +1,13 @@
 FROM node:16.14.2-alpine AS builder
 
+RUN addgroup -g 1000 -S builder && \
+    adduser -u 1000 -S builder -G builder
 
 USER builder
 
 WORKDIR /app
 
-COPY --chown=builder:builder . .
+COPY --chown=build:build . .
 
 RUN rm -rf src/GovUk.*
 
@@ -15,7 +17,12 @@ RUN pnpm --filter=explore-education-statistics-frontend... install
 RUN pnpm --filter=explore-education-statistics-frontend build
 
 FROM node:16.14.2-alpine
+
+RUN addgroup -g 1000 -S deployer && \
+    adduser -u 1000 -S deployer -G deployer
+
 USER deployer
+
 ENV NODE_ENV=production
 
 # TOOD LH: 
