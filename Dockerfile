@@ -1,8 +1,5 @@
 FROM node:16.14.2-alpine AS builder
 
-RUN addgroup -g 1000 -S builder && \
-    adduser -u 1000 -S builder -G builder
-
 USER builder
 
 WORKDIR /app
@@ -18,9 +15,6 @@ RUN pnpm --filter=explore-education-statistics-frontend build
 
 FROM node:16.14.2-alpine
 
-RUN addgroup -g 1000 -S deployer && \
-    adduser -u 1000 -S deployer -G deployer
-
 USER deployer
 
 ENV NODE_ENV=production
@@ -33,11 +27,13 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/src/app
 
-COPY --from=builder --chown=deployer:deployer /app/package.json .
-COPY --from=builder --chown=deployer:deployer /app/pnpm-lock.yaml .
-COPY --from=builder --chown=deployer:deployer /app/pnpm-workspace.yaml .
-COPY --from=builder --chown=deployer:deployer /app/src/explore-education-statistics-common/ ./src/explore-education-statistics-common/
-COPY --from=builder --chown=deployer:deployer /app/src/explore-education-statistics-frontend/ ./src/explore-education-statistics-frontend/
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/pnpm-lock.yaml .
+COPY --from=builder /app/pnpm-workspace.yaml .
+COPY --from=builder /app/src/explore-education-statistics-common/ ./src/explore-education-statistics-common/
+COPY --from=builder /app/src/explore-education-statistics-frontend/ ./src/explore-education-statistics-frontend/
+
+RUN chown -R deployer:deployer /usr/src/app
 
 RUN corepack enable
 RUN pnpm --filter=explore-education-statistics-frontend... --prod install
