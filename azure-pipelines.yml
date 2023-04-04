@@ -26,7 +26,6 @@ jobs:
           targetType: 'inline'
           script: 'echo "##vso[task.setvariable variable=PNPM_CACHE_FOLDER]$(pnpm config get store-dir)"'
 
-    
       - task: NodeTool@0
         displayName: 'Install Node.js $(NODE_VERSION)'
         inputs:
