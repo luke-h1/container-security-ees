@@ -105,7 +105,7 @@
       },
       "sku": {
         // "name": "Premium"
-        "name": "Basic"
+        "name": "Classic"
       },
       // "identity": {
       //   "principalId": "string",
