@@ -44,7 +44,7 @@ class SlackService:
                 "color": "danger" if failed_tests else "good",
                 "mrkdwn_in": ["pretext"],
                 "fields": [
-                    {"title": "Environment", "value": env},
+                    {"title": "Environment", "value": "PNPM prototype"},
                     {"title": "Suite", "value": suite.replace("tests/", "")},
                     {"title": "Total test cases", "value": passed_tests + failed_tests},
                     failed_tests_field,

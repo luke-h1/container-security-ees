@@ -225,36 +225,7 @@
         "NEXT_CONFIG_MODE": "server",
         "NODE_ENV": "production",
         "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/",
-        "WEBSITE_NODE_DEFAULT_VERSION": "16.14.2",
-        "WEBSITE_RUN_FROM_PACKAGE": "1",
-        "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('microsoft.insights/components/', parameters('publicAppInsights')), '2020-02-02').InstrumentationKey]"
-      }
-    },
-    {
-      "type": "Microsoft.Insights/components",
-      "apiVersion": "2020-02-02",
-      "name": "parameters('publicAppInsights')",
-      "location": "[parameters('location')]",
-      "tags": {
-        "tagName1": "test",
-        "tagName2": "123"
-      },
-      "kind": "web",
-      "properties": {
-        "Application_Type": "web",
-        "DisableIpMasking": false,
-        "DisableLocalAuth": false,
-        "Flow_Type": "Bluefield",
-        "ForceCustomerStorageForProfiler": false,
-        // "HockeyAppId": "string",
-        "ImmediatePurgeDataOn30Days": true,
-        "IngestionMode": "ApplicationInsights",
-        "publicNetworkAccessForIngestion": "Disabled",
-        "publicNetworkAccessForQuery": "Disabled",
-        "Request_Source": "rest",
-        "RetentionInDays": 30,
-        "SamplingPercentage": 1
-        // "WorkspaceResourceId": "string"
+        "WEBSITE_NODE_DEFAULT_VERSION": "16.14.2"
       }
     },
     {
