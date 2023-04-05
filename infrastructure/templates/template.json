@@ -150,8 +150,8 @@
             "type": "Notary"
           }
         },
-        "publicNetworkAccess": "Disabled",
-        "zoneRedundancy": "Disabled"
+        "publicNetworkAccess": "disabled",
+        "zoneRedundancy": "disabled"
       }
     },
     {
