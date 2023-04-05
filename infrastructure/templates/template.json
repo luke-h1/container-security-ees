@@ -135,9 +135,9 @@
         //   ]
         // },
         "policies": {
-          "exportPolicy": {
-            "status": "string"
-          },
+          // "exportPolicy": {
+          //   "status": "string"
+          // },
           "quarantinePolicy": {
             "status": "enabled"
           },
@@ -145,10 +145,10 @@
             "days": 20,
             "status": "enabled"
           },
-          "trustPolicy": {
-            "status": "string",
-            "type": "Notary"
-          }
+          // "trustPolicy": {
+          //   "status": "string",
+          //   "type": "Notary"
+          // }
         },
         "publicNetworkAccess": "disabled",
         "zoneRedundancy": "disabled"
