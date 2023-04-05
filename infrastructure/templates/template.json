@@ -103,19 +103,12 @@
         "tagName1": "ees",
         "tagName2": "dev2"
       },
-      "sku": {
-        "name": "Standard"
-        
-      },
-      // "identity": {
-      //   "principalId": "string",
-      //   "tenantId": "string",
-      //   "type": "string",
-      //   "userAssignedIdentities": {}
+      // "sku": {
+      //   "name": "Standard"
       // },
       "properties": {
         "adminUserEnabled": true,
-        "dataEndpointEnabled": false,
+        // "dataEndpointEnabled": false,
         // "encryption": {
         //   // https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-arm-template#keyvaultproperties-1
         //   "keyVaultProperties": {
@@ -151,9 +144,6 @@
           //   "type": "Notary"
           // }
         }
-        // "publicNetworkAccess": "disabled",
-        // "publicNetworkAccess": "enabled",
-        // "zoneRedundancy": "disabled"
       }
     },
     {
