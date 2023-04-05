@@ -144,7 +144,7 @@
           "retentionPolicy": {
             "days": 20,
             "status": "enabled"
-          },
+          }
           // "trustPolicy": {
           //   "status": "string",
           //   "type": "Notary"
