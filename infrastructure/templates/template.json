@@ -164,7 +164,7 @@
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2021-02-01",
-      "name": "[parameters('webAppName')]",
+      "name": "ees-pnpm-linux-container",
       "kind": "app,linux,container",
       "location": "[parameters('location')]",
       "properties": {
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "name": "[concat(variables('webAppName'), '/appsettings')]",
+      "name": "ees-pnpm-linux-container/appsettings",
       "type": "Microsoft.Web/sites/config",
       "location": "[resourceGroup().location]",
       "apiVersion": "2021-02-01",
