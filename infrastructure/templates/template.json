@@ -177,29 +177,13 @@
           "alwaysOn": true,
           "minTlsVersion": "1.2",
           "ftpsState": "FtpsOnly",
-          "netFrameworkVersion": "v6.0",
           "framework": "node",
           "nodeVersion": "16-lts",
           "WEBSITES_PORT": 3000,
           "DOCKER_REGISTRY_SERVER_URL": "[parameters('DOCKER_REGISTER_SERVER_URL')]",
           "DOCKER_REGISTRY_SERVER_USERNAME": "[parameters('DOCKER_REGISTRY_SERVER_USERNAME')]",
-          "DOCKER_REGISTRY_SERVER_PASSWORD": "[parameters('DOCKER_REGISTRY_SERVER_PASSWORD')]",
-          "DOCKER_IMAGE_TAG": "latest",
-          // env var start
-          "WEBSITES_ENABLE_APP_SERVICE_STORAGE": true,
-          "APP_ENV": "development",
-          "BASIC_AUTH": true,
-          "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
-          "BASIC_AUTH_PASSWORD": "[parameters('publicAppBasicAuthPassword')]",
-          "CONTENT_API_BASE_URL": "[parameters('contentApiUrl')]",
-          "DATA_API_BASE_URL": "[parameters('dataApiUrl')]",
-          "NOTIFICATION_API_BASE_URL": "[parameters('notifyApiUrl')]",
-          "NEXT_CONFIG_MODE": "server",
-          "NODE_ENV": "production",
-          "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/"
-          // env var end
-          },
-        // EES frontend env vars start
+          "DOCKER_REGISTRY_SERVER_PASSWORD": "[parameters('DOCKER_REGISTRY_SERVER_PASSWORD')]"
+        },
         "APP_ENV": "development",
         "BASIC_AUTH": true,
         "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
@@ -210,7 +194,6 @@
         "NEXT_CONFIG_MODE": "server",
         "NODE_ENV": "production",
         "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/"
-        // EES - frontend env vars end
       },
       "identity": {
         "type": "SystemAssigned"
@@ -218,6 +201,29 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
       ]
+    },
+    {
+      "name": "[concat(variables('webAppName'), '/appsettings')]",
+      "type": "Microsoft.Web/sites/config",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2021-02-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', variables('webAppName'))]"
+      ],
+      "properties": {
+        "APP_ENV": "development",
+        "BASIC_AUTH": true,
+        "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
+        "BASIC_AUTH_PASSWORD": "[parameters('publicAppBasicAuthPassword')]",
+        "CONTENT_API_BASE_URL": "[parameters('contentApiUrl')]",
+        "DATA_API_BASE_URL": "[parameters('dataApiUrl')]",
+        "NOTIFICATION_API_BASE_URL": "[parameters('notifyApiUrl')]",
+        "NEXT_CONFIG_MODE": "server",
+        "NODE_ENV": "production",
+        "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/",
+        "WEBSITE_NODE_DEFAULT_VERSION": "16.14.2",
+        "WEBSITE_RUN_FROM_PACKAGE": "1"
+      }
     },
     {
       "condition": "[contains(parameters('repoUrl'), 'http')]",
