@@ -115,14 +115,14 @@
       "properties": {
         "adminUserEnabled": true,
         "dataEndpointEnabled": false,
-        "encryption": {
-          // https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-arm-template#keyvaultproperties-1
-          // "keyVaultProperties": {
-          //   "identity": "string",
-          //   "keyIdentifier": "string"
-          // },
-          "status": "enabled"
-        },
+        // "encryption": {
+        //   // https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-arm-template#keyvaultproperties-1
+        //   "keyVaultProperties": {
+        //     "identity": "string",
+        //     "keyIdentifier": "string"
+        //   },
+        //   "status": "enabled"
+        // },
         // Whether to allow trusted Azure services to access a network restricted registry
         "networkRuleBypassOptions": "AzureServices",
         "networkRuleSet": {
