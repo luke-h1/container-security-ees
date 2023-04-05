@@ -125,15 +125,15 @@
         // },
         // Whether to allow trusted Azure services to access a network restricted registry
         "networkRuleBypassOptions": "AzureServices",
-        "networkRuleSet": {
-          "defaultAction": "Allow",
-          "ipRules": [
-            {
-              "action": "Allow",
-              "value": "string"
-            }
-          ]
-        },
+        // "networkRuleSet": {
+        //   "defaultAction": "Allow",
+        //   "ipRules": [
+        //     {
+        //       "action": "Allow",
+        //       "value": "string"
+        //     }
+        //   ]
+        // },
         "policies": {
           "exportPolicy": {
             "status": "string"
