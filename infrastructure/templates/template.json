@@ -103,9 +103,9 @@
         "tagName1": "ees",
         "tagName2": "dev2"
       },
-      // "sku": {
-      //   "name": "Standard"
-      // },
+      "sku": {
+        "name": "Standard"
+      },
       "properties": {
         "adminUserEnabled": true,
         // "dataEndpointEnabled": false,
