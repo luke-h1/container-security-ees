@@ -18,7 +18,6 @@ jobs:
       vmImage: 'ubuntu-20.04'
       demands: azureps
     steps:
-
       - task: 'Bash@3'
         displayName: 'Get pnpm store directory'
         inputs:
@@ -53,13 +52,6 @@ jobs:
           workingDir: '.'
           targetType: 'inline'
           script: 'pnpm i'
-
-      - task: 'Bash@3'
-        displayName: 'echo "done'
-        inputs:
-          workingDir: '.'
-          targetType: 'inline'
-          script: 'echo "done"'
 
       - task: 'Bash@3'
         displayName: 'Purge'
