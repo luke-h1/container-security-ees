@@ -107,7 +107,8 @@
         "name": "Standard"
       },
       "properties": {
-        "adminUserEnabled": true,
+        "adminUserEnabled": true
+        // standard sku doesn't support below
         // "dataEndpointEnabled": false,
         // "encryption": {
         //   // https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-arm-template#keyvaultproperties-1
@@ -128,22 +129,22 @@
         //     }
         //   ]
         // },
-        "policies": {
-          // "exportPolicy": {
-          //   "status": "string"
-          // },
-          "quarantinePolicy": {
-            "status": "enabled"
-          },
-          "retentionPolicy": {
-            "days": 21,
-            "status": "enabled"
-          }
-          // "trustPolicy": {
-          //   "status": "string",
-          //   "type": "Notary"
-          // }
-        }
+        // "policies": {
+        //   // "exportPolicy": {
+        //   //   "status": "string"
+        //   // },
+        //   "quarantinePolicy": {
+        //     "status": "enabled"
+        //   },
+        //   "retentionPolicy": {
+        //     "days": 20,
+        //     "status": "enabled"
+        //   }
+        //   // "trustPolicy": {
+        //   //   "status": "string",
+        //   //   "type": "Notary"
+        //   // }
+        // }
       }
     },
     {
