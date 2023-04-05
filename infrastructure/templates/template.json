@@ -185,8 +185,20 @@
           "DOCKER_REGISTRY_SERVER_USERNAME": "[parameters('DOCKER_REGISTRY_SERVER_USERNAME')]",
           "DOCKER_REGISTRY_SERVER_PASSWORD": "[parameters('DOCKER_REGISTRY_SERVER_PASSWORD')]",
           "DOCKER_IMAGE_TAG": "latest",
-          "WEBSITES_ENABLE_APP_SERVICE_STORAGE": true
-        },
+          // env var start
+          "WEBSITES_ENABLE_APP_SERVICE_STORAGE": true,
+          "APP_ENV": "development",
+          "BASIC_AUTH": true,
+          "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
+          "BASIC_AUTH_PASSWORD": "[parameters('publicAppBasicAuthPassword')]",
+          "CONTENT_API_BASE_URL": "[parameters('contentApiUrl')]",
+          "DATA_API_BASE_URL": "[parameters('dataApiUrl')]",
+          "NOTIFICATION_API_BASE_URL": "[parameters('notifyApiUrl')]",
+          "NEXT_CONFIG_MODE": "server",
+          "NODE_ENV": "production",
+          "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/"
+          // env var end
+          },
         // EES frontend env vars start
         "APP_ENV": "development",
         "BASIC_AUTH": true,
