@@ -104,8 +104,8 @@
         "tagName2": "dev2"
       },
       "sku": {
-        // "name": "Premium"
-        "name": "Basic"
+        "name": "Premium"
+        
       },
       // "identity": {
       //   "principalId": "string",
