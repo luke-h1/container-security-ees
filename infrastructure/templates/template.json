@@ -240,7 +240,6 @@
         "tagName2": "123"
       },
       "kind": "web",
-      "etag": "tag",
       "properties": {
         "Application_Type": "web",
         "DisableIpMasking": false,
