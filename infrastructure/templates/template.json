@@ -253,7 +253,7 @@
         "publicNetworkAccessForQuery": "Disabled",
         "Request_Source": "rest",
         "RetentionInDays": 30,
-        "SamplingPercentage": "[json('decimal-as-string')]"
+        "SamplingPercentage": 1
         // "WorkspaceResourceId": "string"
       }
     },
