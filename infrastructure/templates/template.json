@@ -95,6 +95,66 @@
   },
   "resources": [
     {
+      "type": "Microsoft.ContainerRegistry/registries",
+      "apiVersion": "2022-12-01",
+      "name": "eesdev2",
+      "location": "[parameters('location')]",
+      "tags": {
+        "tagName1": "ees",
+        "tagName2": "dev2"
+      },
+      "sku": {
+        "name": "Premium"
+      },
+      // "identity": {
+      //   "principalId": "string",
+      //   "tenantId": "string",
+      //   "type": "string",
+      //   "userAssignedIdentities": {}
+      // },
+      "properties": {
+        "adminUserEnabled": true,
+        "dataEndpointEnabled": false,
+        "encryption": {
+          // https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-arm-template#keyvaultproperties-1
+          // "keyVaultProperties": {
+          //   "identity": "string",
+          //   "keyIdentifier": "string"
+          // },
+          "status": "enabled"
+        },
+        // Whether to allow trusted Azure services to access a network restricted registry
+        "networkRuleBypassOptions": "AzureServices",
+        "networkRuleSet": {
+          "defaultAction": "Allow",
+          "ipRules": [
+            {
+              "action": "Allow",
+              "value": "string"
+            }
+          ]
+        },
+        "policies": {
+          "exportPolicy": {
+            "status": "string"
+          },
+          "quarantinePolicy": {
+            "status": "enabled"
+          },
+          "retentionPolicy": {
+            "days": 20,
+            "status": "enabled"
+          },
+          "trustPolicy": {
+            "status": "string",
+            "type": "Notary"
+          }
+        },
+        "publicNetworkAccess": "Disabled",
+        "zoneRedundancy": "Disabled"
+      }
+    },
+    {
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2021-02-01",
       "name": "[variables('appServicePlanPortalName')]",
