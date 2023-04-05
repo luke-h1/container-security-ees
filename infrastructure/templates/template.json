@@ -150,7 +150,7 @@
           //   "status": "string",
           //   "type": "Notary"
           // }
-        },
+        }
         // "publicNetworkAccess": "disabled",
         // "publicNetworkAccess": "enabled",
         // "zoneRedundancy": "disabled"
