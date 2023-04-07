@@ -206,11 +206,7 @@
       "identity": {
         "type": "SystemAssigned"
       },
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
-        "[resourceId('Microsoft.ContainerRegistry/registries', 'eesdev2')]",
-        "[resourceId('Microsoft.Web/sites/config', 'ees-pnpm-linux-container', 'appsettings')]"
-      ]
+      "dependsOn": []
     },
     {
       "name": "ees-pnpm-linux-container/appsettings",
