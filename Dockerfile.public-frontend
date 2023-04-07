@@ -10,6 +10,8 @@ RUN rm -rf src/GovUk.* && \
     pnpm --filter=explore-education-statistics-frontend... install && \
     pnpm --filter=explore-education-statistics-frontend build
 
+RUN echo "pnpm -v"
+
 FROM node:16.14.2-alpine AS runner
 
 WORKDIR /usr/src/app
@@ -23,6 +25,8 @@ COPY --from=builder /app/src/explore-education-statistics-frontend/ ./src/explor
 RUN corepack enable && \
     pnpm i && \
     pnpm --filter=explore-education-statistics-frontend... --prod install
+
+RUN echo "pnpm -v"
 
 WORKDIR /usr/src/app/src/explore-education-statistics-frontend
 
