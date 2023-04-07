@@ -433,10 +433,16 @@ export default function MapBlockInternal({
                   data={features}
                   onEachFeature={(...params) => {
                     if (onEachFeature.current) {
-                      onEachFeature.current(...params);
+                      onEachFeature.current(
+                        ...((params as unknown) as [
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          feature: Feature<Geometry, any>,
+                          layer: Layer,
+                        ]),
+                      );
                     }
                   }}
-                  style={(feature?: MapFeature): PathOptions => {
+                  style={(feature?: MapFeature) => {
                     if (!feature) {
                       return {};
                     }
