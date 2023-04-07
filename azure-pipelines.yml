@@ -6,7 +6,7 @@ variables:
   PNPM_CACHE_FOLDER: $(Pipeline.Workspace)/.pnpm-store
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
@@ -43,7 +43,14 @@ jobs:
             pnpm | "$(Agent.OS)"
             pnpm
           path: $(PNPM_CACHE_FOLDER)
-        displayName: Cache PNPM packages          
+        displayName: Cache PNPM packages
+
+      - task: 'Bash@3'
+        displayName: 'pnpm -v'
+        inputs:
+          workingDir: '.'
+          targetType: 'inline'
+          script: 'pnpm -v'
 
       - task: 'Bash@3'
         displayName: 'pnpm i'
