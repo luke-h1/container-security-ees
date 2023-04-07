@@ -1,16 +1,18 @@
 FROM node:16.14.2-alpine AS builder
 
+
 WORKDIR /app
 
 COPY . .
 
 RUN rm -rf src/GovUk.* && \ 
     corepack enable && \ 
+    && corepack prepare pnpm@8.1.1 --activate && \
     pnpm i && \
     pnpm --filter=explore-education-statistics-frontend... install && \
     pnpm --filter=explore-education-statistics-frontend build
 
-RUN echo "pnpm -v"
+RUN pnpm -v
 
 FROM node:16.14.2-alpine AS runner
 
@@ -26,7 +28,7 @@ RUN corepack enable && \
     pnpm i && \
     pnpm --filter=explore-education-statistics-frontend... --prod install
 
-RUN echo "pnpm -v"
+RUN pnpm -v
 
 WORKDIR /usr/src/app/src/explore-education-statistics-frontend
 
