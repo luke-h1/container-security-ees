@@ -56,7 +56,7 @@
     },
     "repoUrl": {
       "type": "string",
-      "defaultValue": "https://github.com/luke-h1/container-app-ees",
+      "defaultValue": "https://github.com/luke-h1/container-security-ees",
       "metadata": {
         "description": "Optional Git Repo URL"
       }
@@ -91,7 +91,10 @@
     },
     "publicAppInsights": {
       "type": "string",
-      "defaultValue": "ees-pnpm-linux-container-app-insights"
+      "defaultValue": "ees-pnpm-linux-container-app-insights",
+      "metadata": {
+        "description": "The name of the public app insights instance."
+      }
     }
   },
   "variables": {
@@ -192,16 +195,6 @@
           "DOCKER_REGISTRY_SERVER_USERNAME": "[parameters('DOCKER_REGISTRY_SERVER_USERNAME')]",
           "DOCKER_REGISTRY_SERVER_PASSWORD": "[parameters('DOCKER_REGISTRY_SERVER_PASSWORD')]"
         }
-        // "APP_ENV": "development",
-        // "BASIC_AUTH": true,
-        // "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
-        // "BASIC_AUTH_PASSWORD": "[parameters('publicAppBasicAuthPassword')]",
-        // "CONTENT_API_BASE_URL": "[parameters('contentApiUrl')]",
-        // "DATA_API_BASE_URL": "[parameters('dataApiUrl')]",
-        // "NOTIFICATION_API_BASE_URL": "[parameters('notifyApiUrl')]",
-        // "NEXT_CONFIG_MODE": "server",
-        // "NODE_ENV": "production",
-        // "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/"
       },
       "identity": {
         "type": "SystemAssigned"
@@ -231,7 +224,7 @@
       }
     },
     {
-      "condition": "[contains(parameters('repoUrl'), 'http')]",
+      "condition": "[contains(parameters('repoUrl'), 'https')]",
       "type": "Microsoft.Web/sites/sourcecontrols",
       "apiVersion": "2021-02-01",
       "name": "[format('{0}/{1}', parameters('webAppName'), 'web')]",
