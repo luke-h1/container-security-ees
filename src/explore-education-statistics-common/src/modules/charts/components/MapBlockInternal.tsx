@@ -433,13 +433,9 @@ export default function MapBlockInternal({
                   data={features}
                   onEachFeature={(...params) => {
                     if (onEachFeature.current) {
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
                       onEachFeature.current(...params);
                     }
                   }}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
                   style={(feature?: MapFeature): PathOptions => {
                     if (!feature) {
                       return {};
@@ -450,7 +446,7 @@ export default function MapBlockInternal({
                     };
                   }}
                   onclick={e => {
-                    const { feature } = e.sourceTarget;
+                    const { feature }: { feature: MapFeature } = e.sourceTarget;
 
                     if (feature.properties && feature.id) {
                       updateSelectedFeature(feature);
