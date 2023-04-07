@@ -104,8 +104,8 @@
       "name": "eesdev2",
       "location": "[parameters('location')]",
       "tags": {
-        "tagName1": "ees",
-        "tagName2": "dev2"
+        "test": "ees",
+        "test2": "dev2"
       },
       "sku": {
         "name": "Standard"
@@ -153,7 +153,7 @@
     },
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-03-01",
       "name": "[variables('appServicePlanPortalName')]",
       "location": "[parameters('location')]",
       "sku": {
@@ -162,7 +162,9 @@
       "kind": "app,linux,container",
       "dependsOn": [],
       "properties": {
-        "reserved": true
+        "reserved": true,
+        "workerSizeId": "0",
+        "numberOfWorkers": "1"
       }
     },
     {
@@ -179,6 +181,8 @@
         "siteConfig": {
           "acrUseManagedIdentityCreds": false,
           "alwaysOn": true,
+          "http20Enabled": true,
+          "preWarmedInstanceCount": 1,
           "minTlsVersion": "1.2",
           "ftpsState": "FtpsOnly",
           "framework": "node",
@@ -187,23 +191,25 @@
           "DOCKER_REGISTRY_SERVER_URL": "[parameters('DOCKER_REGISTER_SERVER_URL')]",
           "DOCKER_REGISTRY_SERVER_USERNAME": "[parameters('DOCKER_REGISTRY_SERVER_USERNAME')]",
           "DOCKER_REGISTRY_SERVER_PASSWORD": "[parameters('DOCKER_REGISTRY_SERVER_PASSWORD')]"
-        },
-        "APP_ENV": "development",
-        "BASIC_AUTH": true,
-        "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
-        "BASIC_AUTH_PASSWORD": "[parameters('publicAppBasicAuthPassword')]",
-        "CONTENT_API_BASE_URL": "[parameters('contentApiUrl')]",
-        "DATA_API_BASE_URL": "[parameters('dataApiUrl')]",
-        "NOTIFICATION_API_BASE_URL": "[parameters('notifyApiUrl')]",
-        "NEXT_CONFIG_MODE": "server",
-        "NODE_ENV": "production",
-        "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/"
+        }
+        // "APP_ENV": "development",
+        // "BASIC_AUTH": true,
+        // "BASIC_AUTH_USERNAME": "[parameters('publicAppBasicAuthUsername')]",
+        // "BASIC_AUTH_PASSWORD": "[parameters('publicAppBasicAuthPassword')]",
+        // "CONTENT_API_BASE_URL": "[parameters('contentApiUrl')]",
+        // "DATA_API_BASE_URL": "[parameters('dataApiUrl')]",
+        // "NOTIFICATION_API_BASE_URL": "[parameters('notifyApiUrl')]",
+        // "NEXT_CONFIG_MODE": "server",
+        // "NODE_ENV": "production",
+        // "PUBLIC_URL": "https://ees-pnpm-linux-container.azurewebsites.net/"
       },
       "identity": {
         "type": "SystemAssigned"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
+        "[resourceId('Microsoft.ContainerRegistry/registries', 'eesdev2')]",
+        "[resourceId('Microsoft.Web/sites/config', 'ees-pnpm-linux-container', 'appsettings')]"
       ]
     },
     {
@@ -236,7 +242,8 @@
       "properties": {
         "repoUrl": "[parameters('repoUrl')]",
         "branch": "main",
-        "isManualIntegration": true
+        "isManualIntegration": true,
+        "deploymentRollbackEnabled": true
       },
       "dependsOn": [
         "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
